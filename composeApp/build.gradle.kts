@@ -73,6 +73,7 @@ kotlin {
 
             // Ktor
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
 
             // Kotlinx
             implementation(libs.kotlinx.coroutines.core)
