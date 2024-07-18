@@ -68,6 +68,8 @@ kotlin {
             // api(libs.koin.annotations)
             api(libs.koin.core)
             implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
             // Ktor
             implementation(libs.ktor.client.core)
