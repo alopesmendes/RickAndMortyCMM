@@ -68,8 +68,8 @@ class GetCharactersListUseCaseTest {
         actual.test {
             verifySuspend(atMost(1)) { charactersRepository.getCharacters(page) }
 
-            assertThat(State.Loading).isEqualTo(awaitItem())
-            assertThat(State.Success(charactersList)).isEqualTo(awaitItem())
+            assertThat(awaitItem()).isEqualTo(State.Loading)
+            assertThat(awaitItem()).isEqualTo(State.Success(charactersList))
             awaitComplete()
         }
     }
@@ -89,8 +89,8 @@ class GetCharactersListUseCaseTest {
         actual.test {
             verifySuspend(atMost(1)) { charactersRepository.getCharacters(page) }
 
-            assertThat(State.Loading).isEqualTo(awaitItem())
-            assertThat(State.Error(exception.toFailure())).isEqualTo(awaitItem())
+            assertThat(awaitItem()).isEqualTo(State.Loading)
+            assertThat(awaitItem()).isEqualTo(State.Error(exception.toFailure()))
             awaitComplete()
         }
 
@@ -118,7 +118,7 @@ class GetCharactersListUseCaseTest {
 
         // then:
         actual.test {
-            assertThat(State.Error(Failure.AssertionFailure)).isEqualTo(awaitItem())
+            assertThat(awaitItem()).isEqualTo(State.Error(Failure.AssertionFailure))
             awaitComplete()
         }
 
