@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import core.entities.State
 import features.characters.domain.entities.CharacterList
 import features.characters.domain.useCases.GetCharactersListUseCase
+import features.characters.mapper.mapTo
 import features.characters.presentation.intents.CharactersIntent
 import features.characters.presentation.state.CharactersListState
 import kotlinx.collections.immutable.persistentListOf
@@ -54,7 +55,10 @@ class CharactersViewModel(
                 _characterListState.update {
                     it.copy(
                         isLoading = false,
-                        characters = persistentListOf(*state.data.results.toTypedArray()),
+                        characters = persistentListOf(
+                            *it.characters.toTypedArray(),
+                            *state.data.results.map { it1  -> it1.mapTo() }.toTypedArray(),
+                        ),
                         page = page
                     )
                 }

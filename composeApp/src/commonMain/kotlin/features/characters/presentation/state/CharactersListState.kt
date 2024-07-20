@@ -9,6 +9,6 @@ import kotlinx.collections.immutable.persistentListOf
 data class CharactersListState(
     val page: Int = 1,
     val isLoading: Boolean = false,
-    val characters: ImmutableList<Character> = persistentListOf(),
+    val characters: ImmutableList<CharacterItem> = persistentListOf(),
     val error: String? = null,
 )
