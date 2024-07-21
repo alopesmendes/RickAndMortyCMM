@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<State : Reducer.ViewState, Intent : Reducer.ViewIntent, Effect : Reducer.ViewEffect>(
     initialState: State,
-) : ViewModel(), Reducer<State, Intent, Effect> {
+    private val reducer: Reducer<State, Intent, Effect>
+) : ViewModel() {
     private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 
@@ -41,7 +42,7 @@ abstract class BaseViewModel<State : Reducer.ViewState, Intent : Reducer.ViewInt
     private fun onHandleIntents() {
         viewModelScope.launch {
             _intents.collectLatest {
-                reduce(_state::update, it)
+                reducer.reduce(_state::update, it)
             }
         }
     }

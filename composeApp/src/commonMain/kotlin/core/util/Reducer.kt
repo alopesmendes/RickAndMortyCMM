@@ -9,5 +9,5 @@ interface Reducer<State : Reducer.ViewState, Intent : Reducer.ViewIntent, Effect
 
     interface ViewEffect
 
-    fun reduce(previousState: KFunction1<(State) -> State, Unit>, event: Intent)
+    suspend fun reduce(updateState: KFunction1<(State) -> State, Unit>, intent: Intent)
 }
