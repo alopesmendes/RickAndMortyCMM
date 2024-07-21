@@ -1,14 +1,15 @@
 package features.characters.presentation.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import core.components.InfiniteLazyColumn
 import features.characters.presentation.state.CharacterItem
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -27,7 +28,9 @@ fun CharactersListView(
         loadMore = loadMore,
         loading = loading,
         loadingItem = {
-            CircularProgressIndicator()
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
         },
         itemContent = {
             CharacterCard(
