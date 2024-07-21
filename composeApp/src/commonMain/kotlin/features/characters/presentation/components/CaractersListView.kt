@@ -19,7 +19,7 @@ fun CharactersListView(
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(characters, key = { it.id }) {
             CharacterCard(

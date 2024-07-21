@@ -28,7 +28,7 @@ import kotlin.test.Test
 
 @ExperimentalCoroutinesApi
 class CharactersRepositoryImplTest {
-    private var dispatcher = Dispatchers.Unconfined
+    private val dispatcher = Dispatchers.Unconfined
 
     private lateinit var charactersRemoteDatasource: CharactersRemoteDatasource
     private lateinit var charactersRepository: CharactersRepository
@@ -112,7 +112,7 @@ class CharactersRepositoryImplTest {
     }
 
     @Test
-    fun `should not get a list of characters when network call is returns nothing`() = runTest {
+    fun `should not get a list of characters when network call returns nothing`() = runTest {
         // given:
         val page = 1
         val infoDto = InfoDto(
