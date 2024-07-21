@@ -47,7 +47,7 @@ class GetCharactersListUseCaseTest {
     @Test
     fun `should get characters list when data available`() = runTest {
         // given:
-        val page = 1
+        val page = "https://rickandmortyapi.com/api/character/?page=1"
         val characters = listOf(
             Character(id = 1, name = "name", gender = "male", image = "image"),
             Character(id = 2, name = "name", gender = "male", image = "image"),
@@ -77,7 +77,7 @@ class GetCharactersListUseCaseTest {
     @Test
     fun `should not get characters list when data not available`() = runTest {
         // given:
-        val page = 1
+        val page = "https://rickandmortyapi.com/api/character/?page=1"
         val exception = Exception()
         val result = Result.failure<CharacterList>(exception)
 
@@ -91,34 +91,6 @@ class GetCharactersListUseCaseTest {
 
             assertThat(awaitItem()).isEqualTo(State.Loading)
             assertThat(awaitItem()).isEqualTo(State.Error(exception.toFailure()))
-            awaitComplete()
-        }
-
-    }
-
-    @Test
-    fun `should fail when page is negative`() = runTest {
-        // given:
-        val page = -1
-        val characters = listOf(
-            Character(id = 1, name = "name", gender = "male", image = "image"),
-            Character(id = 2, name = "name", gender = "male", image = "image"),
-            Character(id = 3, name = "name", gender = "male", image = "image"),
-        )
-        val info = Info(count = 3, pages = 1, next = "next", prev = null)
-        val charactersList = CharacterList(
-            results = characters,
-            info = info,
-        )
-        val result = Result.success(charactersList)
-
-        // when:
-        everySuspend { charactersRepository.getCharacters(any()) } returns result
-        val actual = getCharactersListUseCase(page)
-
-        // then:
-        actual.test {
-            assertThat(awaitItem()).isEqualTo(State.Error(Failure.AssertionFailure))
             awaitComplete()
         }
 

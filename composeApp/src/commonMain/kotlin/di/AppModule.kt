@@ -11,7 +11,7 @@ import features.characters.data.datasource.CharactersRemoteDatasourceImpl
 import features.characters.data.repositories.CharactersRepositoryImpl
 import features.characters.domain.repositories.CharactersRepository
 import features.characters.domain.useCases.GetCharactersListUseCase
-import features.characters.presentation.viewModels.CharactersViewModel
+import features.characters.presentation.viewModels.CharacterListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -43,7 +43,7 @@ val appModule = module {
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
 
-    viewModelOf(::CharactersViewModel)
+    viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
 }
 

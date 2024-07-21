@@ -48,7 +48,7 @@ class CharactersRepositoryImplTest {
     @Test
     fun `should get a list of characters when network call is successful`() = runTest {
         // given:
-        val page = 1
+        val page = "https://example.com/page/1"
         val location = CharactersLocationDto(
             name = "Earth",
             url = "https://example.com/earth",
@@ -114,7 +114,7 @@ class CharactersRepositoryImplTest {
     @Test
     fun `should not get a list of characters when network call returns nothing`() = runTest {
         // given:
-        val page = 1
+        val page = "https://example.com/page/1"
         val infoDto = InfoDto(
             count = 0,
             pages = 1,
@@ -142,7 +142,7 @@ class CharactersRepositoryImplTest {
     @Test
     fun `should not get a list of characters when network call fails`() = runTest {
         // given:
-        val page = 1
+        val page = "https://example.com/page/1"
         val exception = IllegalStateException()
 
         // when:
@@ -155,66 +155,4 @@ class CharactersRepositoryImplTest {
         }
         assertThat(actual).isFailure()
     }
-
-    @Test
-    fun `should not get a list of characters when page is invalid`() = runTest {
-        // given:
-        val page = -1
-        val location = CharactersLocationDto(
-            name = "Earth",
-            url = "https://example.com/earth",
-        )
-        val origin = OriginDto(
-            name = "Earth",
-            url = "https://example.com/earth",
-        )
-        val infoDto = InfoDto(
-            count = 2,
-            pages = 1,
-            next = "https://example.com/next",
-            prev = null,
-        )
-        val charactersDto = listOf(
-            CharacterDto(
-                id = 1,
-                name = "Character 1",
-                status = "Alive",
-                species = "Human",
-                gender = "Male",
-                image = "https://example.com/character1.jpg",
-                type = "",
-                url = "https://example.com/character1",
-                location = location,
-                created = "",
-                origin = origin,
-                episode = emptyList(),
-            ),
-            CharacterDto(
-                id = 2,
-                name = "Character 2",
-                status = "Alive",
-                species = "Human",
-                gender = "Male",
-                image = "https://example.com/character2.jpg",
-                type = "",
-                url = "https://example.com/character2",
-                location = location,
-                created = "",
-                origin = origin,
-                episode = emptyList(),
-            ),
-        )
-        val characterListDto = CharacterListDto(
-            info = infoDto,
-            results = charactersDto
-        )
-
-        // when:
-        everySuspend { charactersRemoteDatasource.getCharacterList(any()) } returns characterListDto
-        val actual = charactersRepository.getCharacters(page)
-
-        // then:
-        assertThat(actual).isFailure()
-    }
-
 }

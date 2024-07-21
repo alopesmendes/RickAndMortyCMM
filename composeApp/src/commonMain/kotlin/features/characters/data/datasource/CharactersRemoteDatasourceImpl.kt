@@ -8,9 +8,9 @@ import io.ktor.client.request.get
 class CharactersRemoteDatasourceImpl(
     private val httpClient: HttpClient
 ): CharactersRemoteDatasource {
-    override suspend fun getCharacterList(page: Int): CharacterListDto {
-        require(page > 0)
-        val httpResponse = httpClient.get(urlString = "https://rickandmortyapi.com/api/character?page=$page")
+    override suspend fun getCharacterList(page: String?): CharacterListDto {
+        val url = page ?: "https://rickandmortyapi.com/api/character"
+        val httpResponse = httpClient.get(urlString = url)
         return httpResponse.body<CharacterListDto>()
     }
 }

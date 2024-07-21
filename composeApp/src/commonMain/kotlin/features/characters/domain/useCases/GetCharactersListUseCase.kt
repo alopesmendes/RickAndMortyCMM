@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetCharactersListUseCase(private val repository: CharactersRepository) {
-    operator fun invoke(page: Int): Flow<State<CharacterList>> = flow {
+    operator fun invoke(page: String? = null): Flow<State<CharacterList>> = flow {
         try {
-            require(page > 0)
             emit(State.Loading)
 
             val result = repository.getCharacters(page)

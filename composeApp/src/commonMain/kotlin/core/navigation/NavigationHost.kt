@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import features.characters.presentation.screens.CharactersScreen
-import features.characters.presentation.viewModels.CharactersViewModel
+import features.characters.presentation.viewModels.CharacterListViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -21,8 +21,8 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
         startDestination = Routes.Characters.fullRoute(),
     ) {
         composable(Routes.Characters.fullRoute()) {
-            val viewModel: CharactersViewModel = koinViewModel()
-            val characterListState by viewModel.characterListState.collectAsState()
+            val viewModel: CharacterListViewModel = koinViewModel()
+            val characterListState by viewModel.state.collectAsState()
             CharactersScreen(
                 charactersListState = characterListState,
             )
