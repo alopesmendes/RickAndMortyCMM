@@ -2,17 +2,20 @@ package features.characters.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,35 +31,42 @@ fun CharacterCard(
     onClick: () -> Unit,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 4.dp),
         onClick = onClick,
     ) {
         Row(
-            modifier = Modifier.fillMaxSize().height(IntrinsicSize.Min),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxSize().padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             AsyncImage(
                 model = characterItem.image,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.clip(CircleShape),
             )
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 16.dp),
-                verticalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxHeight().weight(1f),
+                verticalArrangement = Arrangement.Center,
             ) {
-                Text(
-                    characterItem.name,
-                    style = MaterialTheme.typography.h4,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 2,
-                )
-
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text(
+                        "#${characterItem.id}",
+                        style = MaterialTheme.typography.h5,
+                    )
+                    Text(
+                        characterItem.name,
+                        style = MaterialTheme.typography.h5,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                    )
+                }
                 Text(
                     characterItem.gender,
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.subtitle1,
                 )
             }
         }

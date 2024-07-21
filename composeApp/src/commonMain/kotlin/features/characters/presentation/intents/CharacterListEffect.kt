@@ -5,5 +5,5 @@ import core.util.Reducer
 
 @Immutable
 sealed interface CharacterListEffect: Reducer.ViewEffect {
-    data class NavigateToCharacter(val id: Int): CharacterListEffect
+    data class NavigateToCharacterDetail(val id: Int): CharacterListEffect
 }

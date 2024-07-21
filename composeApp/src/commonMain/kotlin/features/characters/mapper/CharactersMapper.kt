@@ -39,7 +39,18 @@ fun State<CharacterList>.mapToCharactersListState(
 ): CharactersListState {
     return when (this) {
         is State.Loading -> charactersListState.copy(isLoading = true)
-        is State.Error -> charactersListState.copy(error = "error", isLoading = false)
-        is State.Success -> charactersListState.copy(isLoading = false, characters = data.results.mapTo())
+        is State.Error -> charactersListState.copy(
+            error = "error",
+            isLoading = false,
+        )
+
+        is State.Success -> charactersListState.copy(
+            isLoading = false,
+            characters = persistentListOf(
+                *charactersListState.characters.toTypedArray(),
+                *data.results.mapTo().toTypedArray(),
+            ),
+            info = data.info.mapTo(),
+        )
     }
 }

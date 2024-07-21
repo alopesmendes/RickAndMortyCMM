@@ -1,34 +1,42 @@
 package features.characters.presentation.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import core.components.InfiniteLazyColumn
 import features.characters.presentation.state.CharacterItem
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CharactersListView(
     modifier: Modifier = Modifier,
-    characters: List<CharacterItem>,
+    loading: Boolean = false,
+    characters: ImmutableList<CharacterItem>,
+    loadMore: () -> Unit,
+    onClick: (CharacterItem) -> Unit,
 ) {
-    LazyColumn(
+    InfiniteLazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(characters, key = { it.id }) {
+        items = characters,
+        itemKey = { it.id },
+        loadMore = loadMore,
+        loading = loading,
+        loadingItem = {
+            CircularProgressIndicator()
+        },
+        itemContent = {
             CharacterCard(
                 modifier = Modifier.fillMaxWidth(),
                 characterItem = it,
-                onClick = {},
+                onClick = { onClick(it) },
             )
         }
-    }
+    )
 }
 
 @Composable
@@ -43,6 +51,10 @@ fun CharactersListViewPreview() {
         )
     }
     CharactersListView(
-        characters = characters,
+        characters = characters.toImmutableList(),
+        loadMore = {},
+        loading = false,
+        modifier = Modifier.fillMaxSize(),
+        onClick = {}
     )
 }
