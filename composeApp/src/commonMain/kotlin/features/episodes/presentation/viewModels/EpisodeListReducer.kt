@@ -18,6 +18,10 @@ class EpisodeListReducer(
     ) {
         when(intent) {
             is EpisodeListIntent.FetchEpisodes -> {
+                if (!intent.hasMore) {
+                    return
+                }
+
                 getEpisodeListUseCase(intent.page).collectLatest { state ->
                     updateState.invoke(state::mapTo)
                 }
