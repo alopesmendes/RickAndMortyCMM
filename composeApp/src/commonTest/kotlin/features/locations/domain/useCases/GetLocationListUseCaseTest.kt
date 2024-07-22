@@ -1,7 +1,6 @@
 import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import core.entities.Failure
 import core.entities.Info
 import core.entities.State
 import core.entities.toFailure
@@ -9,8 +8,6 @@ import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.mock
-import dev.mokkery.verify
-import dev.mokkery.verify.VerifyMode
 import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import features.locations.domain.entities.Location
@@ -48,7 +45,6 @@ class GetLocationListUseCaseTest {
     @Test
     fun `should get location list when data available`() = runTest {
         // given:
-        val page = 1
         val locationList = LocationList(
             info = Info(
                 count = 1,
@@ -70,7 +66,7 @@ class GetLocationListUseCaseTest {
 
         // when:
         everySuspend { locationsRepository.getLocationList(any()) } returns result
-        val actualResult = getLocationListUseCase(page)
+        val actualResult = getLocationListUseCase()
 
         // then:
         actualResult.test {
@@ -87,52 +83,16 @@ class GetLocationListUseCaseTest {
         // given:
         val exception = Exception()
         val result = Result.failure<LocationList>(exception)
-        val page = 1
 
         // when:
         everySuspend { locationsRepository.getLocationList(any()) } returns result
-        val actualResult = getLocationListUseCase(page)
+        val actualResult = getLocationListUseCase()
 
         // then:
         actualResult.test {
             verifySuspend(atMost(1)) { locationsRepository.getLocationList(any()) }
             assertThat(State.Loading).isEqualTo(awaitItem())
             assertThat(State.Error(exception.toFailure())).isEqualTo(awaitItem())
-
-            awaitComplete()
-        }
-    }
-
-    @Test
-    fun `should fail when page is negative`() = runTest {
-        // given:
-        val page = -1
-        val locationList = LocationList(
-            info = Info(
-                count = 1,
-                pages = 1,
-                next = "https://rickandmortyapi.com/api/location/?page=2",
-                prev = null
-            ),
-            results = listOf(
-                Location(
-                    id = 1,
-                    name = "Earth (C-137)",
-                    type = "Planet",
-                    dimension = "Dimension C-137",
-                    url = "https://rickandmortyapi.com/api/location/1"
-                )
-            ),
-        )
-        val result = Result.success(locationList)
-
-        // when:
-        everySuspend { locationsRepository.getLocationList(any()) } returns result
-        val actualResult = getLocationListUseCase(page)
-
-        // then:
-        actualResult.test {
-            assertThat(State.Error(Failure.AssertionFailure)).isEqualTo(awaitItem())
 
             awaitComplete()
         }
