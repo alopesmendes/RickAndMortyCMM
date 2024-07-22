@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.primarySurface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Public
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +44,7 @@ fun LocationListItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
             ) {
@@ -62,21 +65,43 @@ fun LocationListItem(
                     )
                 }
 
-                Row(
+                Spacer(Modifier.height(8.dp))
+
+
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text(
-                        text = location.type,
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.primaryVariant,
-                    )
-                    Text(
-                        text = location.dimension,
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.primaryVariant,
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            Icons.Outlined.Map,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.primaryVariant,
+                        )
+
+                        Text(
+                            text = location.type,
+                            style = MaterialTheme.typography.caption,
+                        )
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            Icons.Outlined.Public,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.primaryVariant,
+                        )
+                        Text(
+                            text = location.dimension,
+                            style = MaterialTheme.typography.caption,
+                        )
+                    }
                 }
             }
         }
