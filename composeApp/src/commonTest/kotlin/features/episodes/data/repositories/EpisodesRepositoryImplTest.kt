@@ -43,7 +43,7 @@ class EpisodesRepositoryImplTest {
     }
 
     @Test
-    fun `should get a list of characters when network call is successful`() = runTest {
+    fun `should get a list of episodes when network call is successful`() = runTest {
         // given:
         val info = InfoDto(
             count = 2,
@@ -88,7 +88,7 @@ class EpisodesRepositoryImplTest {
     }
 
     @Test
-    fun `should not get a list of characters when network call returns nothing`() = runTest {
+    fun `should not get a list of episodes when network call returns nothing`() = runTest {
         // given:
         val info = InfoDto(
             count = 0,
@@ -114,7 +114,7 @@ class EpisodesRepositoryImplTest {
     }
 
     @Test
-    fun `should not get a list of characters when network call fails`() = runTest {
+    fun `should not get a list of episodes when network call fails`() = runTest {
         // given:
         val exception = Exception()
 
