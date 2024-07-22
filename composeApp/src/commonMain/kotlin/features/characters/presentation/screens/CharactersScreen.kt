@@ -1,6 +1,7 @@
 package features.characters.presentation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -9,7 +10,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.components.MainScaffold
 import core.navigation.Routes
+import core.navigation.navItemsRoutes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.characters.presentation.components.CharacterListContent
 import features.characters.presentation.components.CharactersListView
@@ -27,6 +30,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Composable
 fun CharactersScreen(
     charactersListViewModel: CharacterListViewModel = koinViewModel(),
+    modifier: Modifier = Modifier,
     navHostController: NavHostController,
 ) {
     val characterListState by charactersListViewModel.state.collectAsStateWithLifecycle()
@@ -47,6 +51,7 @@ fun CharactersScreen(
     }
 
     CharacterListContent(
+        modifier = modifier,
         charactersListState = characterListState,
         onClick = {
             charactersListViewModel.sendEffect(

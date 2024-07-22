@@ -93,6 +93,12 @@ kotlin {
             implementation(libs.coil.compose.core)
             implementation(libs.coil.network.ktor)
             implementation(libs.coil.mp)
+
+            // Material
+            implementation(libs.material.icons)
+
+            // Logging
+            implementation(libs.napier)
         }
 
         desktopMain.dependencies {

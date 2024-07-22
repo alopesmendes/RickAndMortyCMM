@@ -3,7 +3,7 @@ package features.locationDetail.mapper
 import features.locationDetail.data.models.LocationDetailDto
 import features.locationDetail.domain.entities.LocationDetail
 
-inline fun LocationDetailDto.mapTo(): LocationDetail = LocationDetail(
+fun LocationDetailDto.mapTo(): LocationDetail = LocationDetail(
     id = id,
     name = name,
     type = type,

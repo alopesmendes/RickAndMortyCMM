@@ -6,12 +6,12 @@ import features.locations.data.models.LocationListDto
 import features.locations.domain.entities.Location
 import features.locations.domain.entities.LocationList
 
-inline fun LocationListDto.mapTo(): LocationList = LocationList(
+fun LocationListDto.mapTo(): LocationList = LocationList(
     info = info.mapTo(),
     results = results.mapTo(),
 )
 
-inline fun LocationDto.mapTo(): Location = Location(
+fun LocationDto.mapTo(): Location = Location(
     id = id,
     name = name,
     type = type,
@@ -19,4 +19,4 @@ inline fun LocationDto.mapTo(): Location = Location(
     url = url,
 )
 
-inline fun List<LocationDto>.mapTo(): List<Location> = map { it.mapTo() }
+fun List<LocationDto>.mapTo(): List<Location> = map { it.mapTo() }
