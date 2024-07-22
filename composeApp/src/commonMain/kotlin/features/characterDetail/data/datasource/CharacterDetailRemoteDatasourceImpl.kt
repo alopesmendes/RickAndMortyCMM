@@ -9,7 +9,7 @@ class CharacterDetailRemoteDatasourceImpl(
     private val httpClient: HttpClient
 ): CharacterDetailRemoteDatasource {
     override suspend fun getCharacterDetail(id: Int): CharacterDetailDto {
-        val httpResponse = httpClient.get(urlString = "https://rickandmortyapi.com/api/character/id")
+        val httpResponse = httpClient.get(urlString = "https://rickandmortyapi.com/api/character/$id")
         return httpResponse.body<CharacterDetailDto>()
     }
 }
