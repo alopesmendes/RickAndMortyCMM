@@ -1,10 +1,19 @@
 package features.episodeDetail.data.repositories
 
+import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
 import features.episodeDetail.domain.entities.EpisodeDetail
 import features.episodeDetail.domain.repositories.EpisodeDetailRepository
+import features.episodeDetail.mapper.mapTo
 
-class EpisodeDetailRepositoryImpl: EpisodeDetailRepository {
+class EpisodeDetailRepositoryImpl(
+    private val episodeDetailRemoteDatasource: EpisodeDetailRemoteDatasource,
+): EpisodeDetailRepository {
     override suspend fun getEpisodeDetail(id: Int): Result<EpisodeDetail> {
-        TODO("Not yet implemented")
+        return try {
+            val response = episodeDetailRemoteDatasource.getEpisodeDetail(id)
+            Result.success(response.mapTo())
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

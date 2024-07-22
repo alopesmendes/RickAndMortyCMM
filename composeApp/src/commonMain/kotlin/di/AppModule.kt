@@ -14,6 +14,8 @@ import features.characters.domain.useCases.GetCharactersListUseCase
 import features.characters.presentation.viewModels.CharacterListViewModel
 import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
 import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasourceImpl
+import features.episodeDetail.data.repositories.EpisodeDetailRepositoryImpl
+import features.episodeDetail.domain.repositories.EpisodeDetailRepository
 import features.episodes.data.datasource.EpisodesRemoteDatasource
 import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
 import features.episodes.data.repositories.EpisodesRepositoryImpl
@@ -58,6 +60,7 @@ val appModule = module {
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
     singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
     singleOf(::LocationsRepositoryImpl) { bind<LocationsRepository>() }
+    singleOf(::EpisodeDetailRepositoryImpl) { bind<EpisodeDetailRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
