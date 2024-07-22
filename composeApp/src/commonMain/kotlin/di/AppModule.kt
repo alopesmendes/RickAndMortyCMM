@@ -12,10 +12,17 @@ import features.characters.data.repositories.CharactersRepositoryImpl
 import features.characters.domain.repositories.CharactersRepository
 import features.characters.domain.useCases.GetCharactersListUseCase
 import features.characters.presentation.viewModels.CharacterListViewModel
+import features.episodes.data.datasource.EpisodesRemoteDatasource
+import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
+import features.episodes.data.repositories.EpisodesRepositoryImpl
+import features.episodes.domain.repositories.EpisodesRepository
+import features.episodes.domain.useCases.GetEpisodeListUseCase
+import features.episodes.presentation.viewModels.EpisodeListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.bind
@@ -36,15 +43,19 @@ val appModule = module {
 
     singleOf(::CharactersRemoteDatasourceImpl) { bind<CharactersRemoteDatasource>() }
     singleOf(::CharacterDetailRemoteDatasourceImpl) { bind<CharacterDetailRemoteDatasource>() }
+    singleOf(::EpisodesRemoteDatasourceImpl) { bind<EpisodesRemoteDatasource>() }
 
     singleOf(::CharactersRepositoryImpl) { bind<CharactersRepository>() }
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
+    singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
+    singleOf(::GetEpisodeListUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
+    viewModelOf(::EpisodeListViewModel)
 }
 
 fun initializeKoin() {
