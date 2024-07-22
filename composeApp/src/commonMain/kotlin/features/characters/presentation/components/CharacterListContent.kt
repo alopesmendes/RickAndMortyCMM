@@ -10,6 +10,7 @@ import features.characters.presentation.state.CharactersListState
 
 @Composable
 fun CharacterListContent(
+    modifier: Modifier = Modifier,
     charactersListState: CharactersListState,
     loadMore: () -> Unit,
     onClick: (Int) -> Unit
@@ -18,7 +19,7 @@ fun CharacterListContent(
         charactersListState.error != null -> {
             Text(
                 charactersListState.error,
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier.fillMaxSize(),
                 style = MaterialTheme.typography.h1,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.error,
@@ -27,7 +28,7 @@ fun CharacterListContent(
 
         else -> {
             CharactersListView(
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier.fillMaxSize(),
                 characters = charactersListState.characters,
                 loading = charactersListState.isLoading,
                 loadMore = loadMore,

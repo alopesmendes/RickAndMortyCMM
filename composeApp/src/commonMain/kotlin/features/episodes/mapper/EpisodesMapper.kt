@@ -6,12 +6,12 @@ import features.episodes.data.models.EpisodeListDto
 import features.episodes.domain.entities.Episode
 import features.episodes.domain.entities.EpisodeList
 
-inline fun EpisodeListDto.mapTo(): EpisodeList = EpisodeList(
+fun EpisodeListDto.mapTo(): EpisodeList = EpisodeList(
     info = info.mapTo(),
     results = results.mapTo(),
 )
 
-inline fun EpisodeDto.mapTo(): Episode = Episode(
+fun EpisodeDto.mapTo(): Episode = Episode(
     id = id,
     name = name,
     episode = episode,
@@ -20,5 +20,5 @@ inline fun EpisodeDto.mapTo(): Episode = Episode(
     url = url,
 )
 
-inline fun List<EpisodeDto>.mapTo(): List<Episode> = map { it.mapTo() }
+fun List<EpisodeDto>.mapTo(): List<Episode> = map { it.mapTo() }
 

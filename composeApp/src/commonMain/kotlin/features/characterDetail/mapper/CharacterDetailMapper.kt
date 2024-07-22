@@ -7,7 +7,7 @@ import features.characterDetail.domain.entities.CharacterDetail
 import features.characterDetail.domain.entities.CharacterLocation
 import features.characterDetail.domain.entities.Origin
 
-inline fun CharacterDetailDto.mapTo(): CharacterDetail = CharacterDetail(
+fun CharacterDetailDto.mapTo(): CharacterDetail = CharacterDetail(
     id = id,
     name = name,
     gender = gender,
@@ -18,12 +18,12 @@ inline fun CharacterDetailDto.mapTo(): CharacterDetail = CharacterDetail(
     location = location.mapTo()
 )
 
-inline fun OriginDto.mapTo(): Origin = Origin(
+fun OriginDto.mapTo(): Origin = Origin(
     name = name,
     url = url,
 )
 
-inline fun CharacterDetailLocationDto.mapTo(): CharacterLocation = CharacterLocation(
+fun CharacterDetailLocationDto.mapTo(): CharacterLocation = CharacterLocation(
     name = name,
     url = url,
 )
