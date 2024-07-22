@@ -9,5 +9,5 @@ interface EpisodesRepository {
      * @param page the current page
      * @return [Result] of [EpisodeList]
      */
-    suspend fun getEpisodeList(page: Int): Result<EpisodeList>
+    suspend fun getEpisodeList(page: String? = null): Result<EpisodeList>
 }

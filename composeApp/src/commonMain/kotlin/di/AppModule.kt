@@ -14,6 +14,8 @@ import features.characters.domain.useCases.GetCharactersListUseCase
 import features.characters.presentation.viewModels.CharacterListViewModel
 import features.episodes.data.datasource.EpisodesRemoteDatasource
 import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
+import features.episodes.data.repositories.EpisodesRepositoryImpl
+import features.episodes.domain.repositories.EpisodesRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -42,6 +44,7 @@ val appModule = module {
 
     singleOf(::CharactersRepositoryImpl) { bind<CharactersRepository>() }
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
+    singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
