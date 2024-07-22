@@ -8,7 +8,6 @@ import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.mock
-import dev.mokkery.verify.VerifyMode
 import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import features.episodes.domain.entities.Episode
@@ -58,7 +57,6 @@ class GetEpisodeListUseCaseTest {
                 name = "Episode 1",
                 airDate = "2017-11-10",
                 episode = "S01E01",
-                characters = emptyList(),
                 url = "https://rickandmortyapi.com/api/episode/1",
             ),
             Episode(
@@ -66,7 +64,6 @@ class GetEpisodeListUseCaseTest {
                 name = "Episode 2",
                 airDate = "2017-11-11",
                 episode = "S01E02",
-                characters = emptyList(),
                 url = "https://rickandmortyapi.com/api/episode/2",
             )
         )
