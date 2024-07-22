@@ -43,7 +43,7 @@ class GetEpisodeListUseCaseTest {
     }
 
     @Test
-    fun `should get characters list when data available`() = runTest {
+    fun `should get episodes list when data available`() = runTest {
         // given:
         val info = Info(
             count = 2,
@@ -89,7 +89,7 @@ class GetEpisodeListUseCaseTest {
     }
 
     @Test
-    fun `should not get characters list when data not available`() = runTest {
+    fun `should not get episodes list when data not available`() = runTest {
         // given:
         val exception = Exception()
 

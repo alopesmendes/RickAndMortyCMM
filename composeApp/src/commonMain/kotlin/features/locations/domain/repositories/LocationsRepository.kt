@@ -9,5 +9,5 @@ interface LocationsRepository {
      * @param page the current page
      * @return [Result] of [LocationList]
      */
-    suspend fun getLocationList(page: Int = 1): Result<LocationList>
+    suspend fun getLocationList(page: String? = null): Result<LocationList>
 }

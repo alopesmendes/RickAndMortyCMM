@@ -8,10 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetLocationListUseCase(private val repository: LocationsRepository) {
-    suspend operator fun invoke(page: Int): Flow<State<LocationList>> = flow {
+    suspend operator fun invoke(page: String? = null): Flow<State<LocationList>> = flow {
         try {
-            require(page >= 0)
-
             emit(State.Loading)
             val result = repository.getLocationList(page)
             val state = result.fold(

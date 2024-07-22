@@ -18,11 +18,16 @@ import features.episodes.data.repositories.EpisodesRepositoryImpl
 import features.episodes.domain.repositories.EpisodesRepository
 import features.episodes.domain.useCases.GetEpisodeListUseCase
 import features.episodes.presentation.viewModels.EpisodeListViewModel
+import features.locations.data.datasource.LocationsRemoteDatasource
+import features.locations.data.datasource.LocationsRemoteDatasourceImpl
+import features.locations.data.repositories.LocationsRepositoryImpl
+import features.locations.domain.repositories.LocationsRepository
+import features.locations.domain.useCases.GetLocationListUseCase
+import features.locations.presentation.viewModels.LocationsViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.bind
@@ -44,18 +49,22 @@ val appModule = module {
     singleOf(::CharactersRemoteDatasourceImpl) { bind<CharactersRemoteDatasource>() }
     singleOf(::CharacterDetailRemoteDatasourceImpl) { bind<CharacterDetailRemoteDatasource>() }
     singleOf(::EpisodesRemoteDatasourceImpl) { bind<EpisodesRemoteDatasource>() }
+    singleOf(::LocationsRemoteDatasourceImpl) { bind<LocationsRemoteDatasource>() }
 
     singleOf(::CharactersRepositoryImpl) { bind<CharactersRepository>() }
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
     singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
+    singleOf(::LocationsRepositoryImpl) { bind<LocationsRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
     singleOf(::GetEpisodeListUseCase)
+    singleOf(::GetLocationListUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
     viewModelOf(::EpisodeListViewModel)
+    viewModelOf(::LocationsViewModel)
 }
 
 fun initializeKoin() {
