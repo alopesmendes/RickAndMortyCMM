@@ -30,7 +30,6 @@ fun Episode.mapTo(): EpisodeItem = EpisodeItem(
     name = name,
     episode = episode,
     airDate = airDate,
-    url = url,
 )
 
 fun State<EpisodeList>.mapTo(episodeListState: EpisodeListState): EpisodeListState {
