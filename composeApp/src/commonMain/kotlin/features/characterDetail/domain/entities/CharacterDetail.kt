@@ -7,6 +7,7 @@ data class CharacterDetail(
     val image: String,
     val status: String,
     val species: String,
-    val origin: Origin,
+    val origin: CharacterLocation,
     val location: CharacterLocation,
+    val episodes: List<String>,
 )

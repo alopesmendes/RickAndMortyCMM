@@ -11,7 +11,6 @@ import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import features.characterDetail.domain.entities.CharacterDetail
 import features.characterDetail.domain.entities.CharacterLocation
-import features.characterDetail.domain.entities.Origin
 import features.characterDetail.domain.repositories.CharacterDetailRepository
 import features.characterDetail.domain.useCases.GetCharacterDetailUseCase
 import kotlinx.coroutines.Dispatchers
@@ -53,8 +52,9 @@ class GetCharacterDetailUseCaseTest {
             image = "",
             gender = "male",
             species = "",
-            origin = Origin(name = "", url = ""),
+            origin = CharacterLocation(name = "", url = ""),
             location = CharacterLocation(name = "", url = ""),
+            episodes = emptyList(),
         )
         val result = Result.success(characterDetail)
 

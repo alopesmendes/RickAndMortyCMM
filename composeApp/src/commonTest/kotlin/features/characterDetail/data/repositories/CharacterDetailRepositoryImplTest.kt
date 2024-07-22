@@ -5,13 +5,11 @@ import dev.mokkery.answering.throws
 import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.mock
-import dev.mokkery.verify.VerifyMode
 import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import features.characterDetail.data.datasource.CharacterDetailRemoteDatasource
 import features.characterDetail.data.models.CharacterDetailDto
 import features.characterDetail.data.models.CharacterDetailLocationDto
-import features.characterDetail.data.models.OriginDto
 import features.characterDetail.data.repositories.CharacterDetailRepositoryImpl
 import features.characterDetail.domain.repositories.CharacterDetailRepository
 import features.characterDetail.mapper.mapTo
@@ -50,14 +48,14 @@ class CharacterDetailRepositoryImplTest {
             name = "Peggy Pollard",
             url = "https://www.google.com/#q=intellegat"
         )
-        val originDto = OriginDto(
+        val originDto = CharacterDetailLocationDto(
             name = "Leopoldo Blanchard",
             url = "https://search.yahoo.com/search?p=hendrerit"
         )
         val id = 1
         val characterDetailDto = CharacterDetailDto(
             created = "senectus",
-            episode = listOf(),
+            episodes = listOf(),
             gender = "fastidii",
             id = id,
             image = "novum",

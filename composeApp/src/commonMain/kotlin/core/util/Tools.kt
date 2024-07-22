@@ -8,6 +8,10 @@ import androidx.lifecycle.flowWithLifecycle
 import kotlinx.coroutines.flow.Flow
 
 object Tools {
+    fun String.extractIdFromUrl(): Int? {
+        return this.split("/").last().toIntOrNull()
+    }
+
     @Composable
     fun <T> rememberFlowWithLifecycle(
         flow: Flow<T>,

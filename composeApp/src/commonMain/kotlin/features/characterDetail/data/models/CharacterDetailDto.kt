@@ -9,7 +9,7 @@ data class CharacterDetailDto(
     @SerialName("created")
     val created: String,
     @SerialName("episode")
-    val episode: List<String>,
+    val episodes: List<String>,
     @SerialName("gender")
     val gender: String,
     @SerialName("id")
@@ -21,7 +21,7 @@ data class CharacterDetailDto(
     @SerialName("name")
     val name: String,
     @SerialName("origin")
-    val origin: OriginDto,
+    val origin: CharacterDetailLocationDto,
     @SerialName("species")
     val species: String,
     @SerialName("status")

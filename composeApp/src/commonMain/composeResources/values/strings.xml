@@ -3,4 +3,12 @@
     <string name="characters_item">Characters</string>
     <string name="episodes_item">Episodes</string>
     <string name="location_item">Locations</string>
+    <string name="info">Info</string>
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="origin">Origin</string>
+    <string name="location">Location</string>
+    <string name="episodes">Episodes</string>
+    <string name="episode_item">Episode %1$d</string>
 </resources>

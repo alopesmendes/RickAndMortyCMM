@@ -67,7 +67,6 @@ kotlin {
             // Koin
             // api(libs.koin.annotations)
             api(libs.koin.core)
-            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
@@ -82,6 +81,7 @@ kotlin {
 
             // Lifecycle
             implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.lifecycle.viewmodel.savedstate)
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.lifecycle.common)
 

@@ -33,8 +33,8 @@ fun <T> InfiniteLazyColumn(
     items: ImmutableList<T>,
     itemKey: (T) -> Any,
     itemContent: @Composable LazyItemScope.(item: T) -> Unit,
-    loadingItem: @Composable LazyItemScope.() -> Unit,
-    loadMore: () -> Unit
+    loadingItem: @Composable LazyItemScope.() -> Unit = {},
+    loadMore: () -> Unit = {}
 ) {
     val reachBottom by remember {
         derivedStateOf { state.reachedBottom() }
