@@ -1,19 +1,15 @@
 package features.characterDetail.mapper
 
 import core.entities.State
-import core.mapper.mapTo
+import core.util.Tools.extractIdFromUrl
 import features.characterDetail.data.models.CharacterDetailDto
 import features.characterDetail.data.models.CharacterDetailLocationDto
-import features.characterDetail.data.models.OriginDto
 import features.characterDetail.domain.entities.CharacterDetail
 import features.characterDetail.domain.entities.CharacterLocation
-import features.characterDetail.domain.entities.Origin
 import features.characterDetail.presentation.state.CharacterDetailItem
 import features.characterDetail.presentation.state.CharacterDetailState
-import features.characters.domain.entities.CharacterList
-import features.characters.mapper.mapTo
-import features.characters.presentation.state.CharactersListState
-import kotlinx.collections.immutable.persistentListOf
+import features.characterDetail.presentation.state.CharacterLocationItem
+import kotlinx.collections.immutable.toImmutableList
 
 fun CharacterDetailDto.mapTo(): CharacterDetail = CharacterDetail(
     id = id,
@@ -23,17 +19,18 @@ fun CharacterDetailDto.mapTo(): CharacterDetail = CharacterDetail(
     status = status,
     species = species,
     origin = origin.mapTo(),
-    location = location.mapTo()
-)
-
-fun OriginDto.mapTo(): Origin = Origin(
-    name = name,
-    url = url,
+    location = location.mapTo(),
+    episodes = episodes
 )
 
 fun CharacterDetailLocationDto.mapTo(): CharacterLocation = CharacterLocation(
     name = name,
     url = url,
+)
+
+fun CharacterLocation.mapTo(): CharacterLocationItem = CharacterLocationItem(
+    id = url.extractIdFromUrl(),
+    name = name,
 )
 
 fun CharacterDetail.mapTo(): CharacterDetailItem = CharacterDetailItem(
@@ -43,6 +40,9 @@ fun CharacterDetail.mapTo(): CharacterDetailItem = CharacterDetailItem(
     gender = gender,
     status = status,
     species = species,
+    episodes = episodes.mapNotNull { it.extractIdFromUrl() }.toImmutableList(),
+    location = location.mapTo(),
+    origin = origin.mapTo(),
 )
 
 fun State<CharacterDetail>.mapTo(

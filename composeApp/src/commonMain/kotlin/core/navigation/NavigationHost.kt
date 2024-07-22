@@ -10,7 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import features.characterDetail.presentation.screens.CharacterDetailScreen
 import features.characters.presentation.screens.CharactersScreen
+import features.episodeDetail.presentation.screens.EpisodeDetailScreen
 import features.episodes.presentation.screens.EpisodesScreen
+import features.locationDetail.presentation.screens.LocationDetailScreen
 import features.locations.presentation.screens.LocationsScreen
 import org.koin.core.parameter.parametersOf
 
@@ -54,8 +56,20 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
             )
         }
 
+        composable(Routes.EpisodeDetail.fullRoute(), arguments = Routes.EpisodeDetail.navParams()) {
+            EpisodeDetailScreen(
+                navHostController = navHostController,
+            )
+        }
+
         composable(Routes.Locations.fullRoute(), arguments = Routes.Locations.navParams()) {
             LocationsScreen(
+                navHostController = navHostController,
+            )
+        }
+
+        composable(Routes.LocationDetail.fullRoute(), arguments = Routes.LocationDetail.navParams()) {
+            LocationDetailScreen(
                 navHostController = navHostController,
             )
         }

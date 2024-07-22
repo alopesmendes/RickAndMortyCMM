@@ -7,8 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.navigation.Routes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.characterDetail.presentation.components.CharacterDetailContent
+import features.characterDetail.presentation.intents.CharacterDetailEffect
 import features.characterDetail.presentation.viewModels.CharacterDetailViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -28,11 +30,31 @@ fun CharacterDetailScreen(
     val effect = rememberFlowWithLifecycle(characterDetailViewModel.effects)
 
     LaunchedEffect(effect) {
+        effect.collect {
+            when(it) {
+                is CharacterDetailEffect.NavigateToEpisodeDetail -> {
+                    navHostController.navigate(
+                        Routes.EpisodeDetail.navigateTo(it.id)
+                    )
+                }
 
+                is CharacterDetailEffect.NavigateToLocationDetail -> {
+                    navHostController.navigate(
+                        Routes.LocationDetail.navigateTo(it.id)
+                    )
+                }
+            }
+        }
     }
 
     CharacterDetailContent(
         modifier = modifier.fillMaxSize(),
-        characterDetailState = state
+        characterDetailState = state,
+        onEpisodeClick = {
+            characterDetailViewModel.sendEffect(CharacterDetailEffect.NavigateToEpisodeDetail(it))
+        },
+        onLocationClick = {
+            characterDetailViewModel.sendEffect(CharacterDetailEffect.NavigateToLocationDetail(it))
+        }
     )
 }

@@ -1,16 +1,17 @@
 package features.characterDetail.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Healing
 import androidx.compose.material.icons.outlined.Pets
 import androidx.compose.material.icons.outlined.Transgender
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,35 +29,42 @@ fun CharacterDetailInfo(
     modifier: Modifier = Modifier,
     characterDetailItem: CharacterDetailItem,
 ) {
-    Column(
-        modifier = modifier.padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(stringResource(Res.string.info), style = MaterialTheme.typography.subtitle1)
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            CharacterDetailInfoItem(
-                icon = Icons.Outlined.Transgender,
-                label = stringResource(Res.string.gender),
-                data = characterDetailItem.gender,
-            )
-            Divider()
-            CharacterDetailInfoItem(
-                icon = Icons.Outlined.Healing,
-                label = stringResource(Res.string.status),
-                data = characterDetailItem.status,
-            )
-            Divider()
-            CharacterDetailInfoItem(
-                icon = Icons.Outlined.Pets,
-                label = stringResource(Res.string.species),
-                data = characterDetailItem.species,
-            )
+    CharacterDetailTitleWithContent(
+        modifier = modifier,
+        title = stringResource(Res.string.info),
+        content = {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 0.dp,
+                border = BorderStroke(
+                    width = 1.dp,
+                    color = MaterialTheme.colors.primarySurface
+                )
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    CharacterDetailInfoItem(
+                        icon = Icons.Outlined.Transgender,
+                        label = stringResource(Res.string.gender),
+                        data = characterDetailItem.gender,
+                    )
+                    Divider()
+                    CharacterDetailInfoItem(
+                        icon = Icons.Outlined.Healing,
+                        label = stringResource(Res.string.status),
+                        data = characterDetailItem.status,
+                    )
+                    Divider()
+                    CharacterDetailInfoItem(
+                        icon = Icons.Outlined.Pets,
+                        label = stringResource(Res.string.species),
+                        data = characterDetailItem.species,
+                    )
+                }
+            }
         }
-    }
+    )
 }
 
 @Preview

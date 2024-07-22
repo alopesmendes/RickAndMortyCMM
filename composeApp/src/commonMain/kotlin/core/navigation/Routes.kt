@@ -63,11 +63,26 @@ sealed class Routes(
         stringRes = Res.string.episodes_item,
     )
 
+    data object EpisodeDetail : Routes(
+        route = "episode",
+        params = listOf(
+            Constants.PARAM_EPISODE_DETAIL to NavType.IntType,
+        )
+    )
+
     data object Locations : Routes(
         route = "locations",
         icon = Icons.Filled.LocationSearching,
         stringRes = Res.string.location_item,
     )
+
+    data object LocationDetail : Routes(
+        route = "location",
+        params = listOf(
+            Constants.PARAM_LOCATION_DETAIL to NavType.IntType,
+        )
+    )
 }
+
 
 val navItemsRoutes = persistentListOf(Routes.Characters, Routes.Episodes, Routes.Locations)

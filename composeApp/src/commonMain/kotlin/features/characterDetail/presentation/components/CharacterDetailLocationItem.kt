@@ -6,12 +6,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
@@ -22,18 +19,20 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CharacterDetailInfoItem(
+fun CharacterDetailLocationItem(
     modifier: Modifier = Modifier,
+    arrangement: Arrangement.Horizontal = Arrangement.Start,
     icon: ImageVector,
-    label: String,
-    data: String,
+    name: String,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(horizontal = 8.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = arrangement
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -44,23 +43,22 @@ fun CharacterDetailInfoItem(
                 tint = MaterialTheme.colors.primaryVariant,
                 contentDescription = null,
             )
-            Text(label, style = MaterialTheme.typography.body1)
-        }
 
-        Text(
-            text = data,
-            style = MaterialTheme.typography.body1,
-            color = MaterialTheme.colors.primarySurface
-        )
+            Text(
+                text = name,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.primarySurface
+            )
+        }
     }
 }
 
 @Preview
 @Composable
-fun CharacterDetailInfoItemPreview() {
-    CharacterDetailInfoItem(
-        icon = Icons.Filled.Person,
-        label = "Type",
-        data = "Human"
+fun CharacterDetailLocationItemPreview() {
+    CharacterDetailLocationItem(
+        icon = Icons.Outlined.TravelExplore,
+        name = "Earth",
+        onClick = {},
     )
 }
