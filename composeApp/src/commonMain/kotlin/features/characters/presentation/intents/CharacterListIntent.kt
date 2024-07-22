@@ -5,5 +5,5 @@ import core.util.Reducer
 
 @Immutable
 sealed interface CharacterListIntent: Reducer.ViewIntent {
-    data class FetchCharacterList(val page: String? = null) : CharacterListIntent
+    data class FetchCharacterList(val page: String? = null, val hasMore: Boolean = true) : CharacterListIntent
 }

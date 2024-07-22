@@ -18,6 +18,9 @@ class CharacterListReducer(
     ) {
         when(intent) {
             is CharacterListIntent.FetchCharacterList -> {
+                if (!intent.hasMore) {
+                    return
+                }
                 getCharactersListUseCase(intent.page).collectLatest { state ->
                     updateState.invoke(state::mapToCharactersListState)
                 }
