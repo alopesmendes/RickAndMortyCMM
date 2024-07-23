@@ -7,5 +7,5 @@ import core.util.Reducer
 data class EpisodeDetailState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val episodeDetailItem: EpisodeDetailItem = EpisodeDetailItem()
+    val episodeDetail: EpisodeDetailItem = EpisodeDetailItem()
 ): Reducer.ViewState

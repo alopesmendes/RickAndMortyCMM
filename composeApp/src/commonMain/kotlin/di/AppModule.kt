@@ -16,6 +16,8 @@ import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
 import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasourceImpl
 import features.episodeDetail.data.repositories.EpisodeDetailRepositoryImpl
 import features.episodeDetail.domain.repositories.EpisodeDetailRepository
+import features.episodeDetail.domain.useCases.GetEpisodeDetailUseCase
+import features.episodeDetail.presentation.viewModels.EpisodeDetailViewModel
 import features.episodes.data.datasource.EpisodesRemoteDatasource
 import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
 import features.episodes.data.repositories.EpisodesRepositoryImpl
@@ -66,11 +68,13 @@ val appModule = module {
     singleOf(::GetCharacterDetailUseCase)
     singleOf(::GetEpisodeListUseCase)
     singleOf(::GetLocationListUseCase)
+    singleOf(::GetEpisodeDetailUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
     viewModelOf(::EpisodeListViewModel)
     viewModelOf(::LocationsViewModel)
+    viewModelOf(::EpisodeDetailViewModel)
 }
 
 fun initializeKoin() {

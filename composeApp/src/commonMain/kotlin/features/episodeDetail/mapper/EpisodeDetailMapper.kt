@@ -32,7 +32,7 @@ fun State<EpisodeDetail>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeD
             isLoading = true
         )
         is State.Success -> episodeDetailState.copy(
-            episodeDetailItem = data.mapTo(),
+            episodeDetail = data.mapTo(),
         )
     }
 }
