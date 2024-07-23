@@ -1,5 +1,6 @@
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import core.util.Tools.extractIdFromUrl
 import dev.mokkery.answering.returns
 import dev.mokkery.answering.throws
 import dev.mokkery.everySuspend
@@ -9,6 +10,8 @@ import dev.mokkery.verify.VerifyMode.Companion.atMost
 import dev.mokkery.verifySuspend
 import features.characterDetail.data.models.CharacterDetailDto
 import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
+import features.episodeDetail.data.models.EpisodeDetailCharacterDto
+import features.episodeDetail.data.models.EpisodeDetailCharacterLocationDto
 import features.episodeDetail.data.models.EpisodeDetailDto
 import features.episodeDetail.data.repositories.EpisodeDetailRepositoryImpl
 import features.episodeDetail.domain.repositories.EpisodeDetailRepository
@@ -80,6 +83,68 @@ class EpisodeDetailRepositoryImplTest {
         val expected = Result.failure<CharacterDetailDto>(exception)
 
         verifySuspend(atMost(1)) { episodeDetailRemoteDatasource.getEpisodeDetail(any()) }
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should get episode detail characters when network call is successful`() = runTest {
+        // given:
+        val episodeId = 1
+        val characters = listOf(
+            "https://rickandmortyapi.com/api/character/1",
+            "https://rickandmortyapi.com/api/character/2"
+        )
+        val episodeCharactersDto = characters.map {
+            EpisodeDetailCharacterDto(
+                id = it.extractIdFromUrl() ?: 0,
+                name = "William",
+                episode = emptyList(),
+                url = it,
+                created = "2017-11-04T18:48:46.250Z",
+                image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                status = "Alive",
+                gender = "Male",
+                type = "Human",
+                species = "Human",
+                location = EpisodeDetailCharacterLocationDto(
+                    name = "Earth (C-137)",
+                    url = "https://rickandmortyapi.com/api/location/1"
+                ),
+                origin = EpisodeDetailCharacterLocationDto(
+                    name = "Earth (Replacement Dimension)",
+                    url = "https://rickandmortyapi.com/api/location/20"
+                )
+            )
+        }
+
+        // when:
+        everySuspend { episodeDetailRemoteDatasource.getCharacters(any()) } returns episodeCharactersDto
+        val actual = episodeDetailRepository.getCharacters(characters)
+
+        // then:
+        val expected = Result.success(episodeCharactersDto.mapTo())
+
+        verifySuspend(atMost(1)) { episodeDetailRemoteDatasource.getCharacters(any()) }
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should return episode detail characters when network call fails`() = runTest {
+        // given:
+        val exception = Exception()
+        val characters = listOf(
+            "https://rickandmortyapi.com/api/character/1",
+            "https://rickandmortyapi.com/api/character/2"
+        )
+
+        // when:
+        everySuspend { episodeDetailRemoteDatasource.getCharacters(any()) } throws exception
+        val actual = episodeDetailRepository.getCharacters(characters)
+
+        // then:
+        val expected = Result.failure<List<EpisodeDetailCharacterDto>>(exception)
+
+        verifySuspend(atMost(1)) { episodeDetailRemoteDatasource.getCharacters(any()) }
         assertThat(actual).isEqualTo(expected)
     }
 }
