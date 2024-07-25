@@ -16,7 +16,9 @@ import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
 import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasourceImpl
 import features.episodeDetail.data.repositories.EpisodeDetailRepositoryImpl
 import features.episodeDetail.domain.repositories.EpisodeDetailRepository
+import features.episodeDetail.domain.useCases.GetEpisodeCharactersUseCase
 import features.episodeDetail.domain.useCases.GetEpisodeDetailUseCase
+import features.episodeDetail.domain.useCases.GetEpisodeDetailWithEpisodeCharactersUseCase
 import features.episodeDetail.presentation.viewModels.EpisodeDetailViewModel
 import features.episodes.data.datasource.EpisodesRemoteDatasource
 import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
@@ -69,6 +71,8 @@ val appModule = module {
     singleOf(::GetEpisodeListUseCase)
     singleOf(::GetLocationListUseCase)
     singleOf(::GetEpisodeDetailUseCase)
+    singleOf(::GetEpisodeCharactersUseCase)
+    singleOf(::GetEpisodeDetailWithEpisodeCharactersUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)

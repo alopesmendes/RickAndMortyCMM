@@ -26,6 +26,7 @@ fun EpisodeDetailContent(
             EpisodeDetailView(
                 modifier = modifier,
                 episodeDetail = episodeDetailState.episodeDetail,
+                episodeCharacters = episodeDetailState.characters,
             )
         }
     }

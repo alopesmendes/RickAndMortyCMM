@@ -49,7 +49,8 @@ class GetEpisodeDetailUseCaseTest {
             name = "Episode 1",
             airDate = "2023-01-01",
             url = "https://example.com/episode1",
-            created = "2023-01-01T00:00:00Z"
+            created = "2023-01-01T00:00:00Z",
+            characters = emptyList()
         )
         val result = Result.success(episodeDetail)
 

@@ -5,8 +5,11 @@ import features.episodeDetail.data.models.EpisodeDetailCharacterDto
 import features.episodeDetail.data.models.EpisodeDetailDto
 import features.episodeDetail.domain.entities.EpisodeCharacter
 import features.episodeDetail.domain.entities.EpisodeDetail
+import features.episodeDetail.domain.entities.EpisodeDetailWithEpisodeCharacters
+import features.episodeDetail.presentation.state.EpisodeCharacterItem
 import features.episodeDetail.presentation.state.EpisodeDetailItem
 import features.episodeDetail.presentation.state.EpisodeDetailState
+import kotlinx.collections.immutable.persistentListOf
 
 fun EpisodeDetailDto.mapTo(): EpisodeDetail = EpisodeDetail(
     id = id,
@@ -15,6 +18,7 @@ fun EpisodeDetailDto.mapTo(): EpisodeDetail = EpisodeDetail(
     airDate = airDate,
     url = url,
     created = created,
+    characters = characters,
 )
 
 fun EpisodeDetail.mapTo(): EpisodeDetailItem = EpisodeDetailItem(
@@ -32,7 +36,13 @@ fun EpisodeDetailCharacterDto.mapTo(): EpisodeCharacter = EpisodeCharacter(
 
 fun List<EpisodeDetailCharacterDto>.mapTo(): List<EpisodeCharacter> = map { it.mapTo() }
 
-fun State<EpisodeDetail>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeDetailState {
+fun EpisodeCharacter.mapTo(): EpisodeCharacterItem = EpisodeCharacterItem(
+    id = id,
+    name = name,
+    image = image,
+)
+
+fun State<EpisodeDetailWithEpisodeCharacters>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeDetailState {
     return when(this) {
         is State.Error -> episodeDetailState.copy(
             isLoading = false,
@@ -42,7 +52,11 @@ fun State<EpisodeDetail>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeD
             isLoading = true
         )
         is State.Success -> episodeDetailState.copy(
-            episodeDetail = data.mapTo(),
+            episodeDetail = data.episodeDetail.mapTo(),
+            characters = persistentListOf(
+                *episodeDetailState.characters.toTypedArray(),
+                *data.episodeCharacters.map { it.mapTo() }.toTypedArray(),
+            )
         )
     }
 }
