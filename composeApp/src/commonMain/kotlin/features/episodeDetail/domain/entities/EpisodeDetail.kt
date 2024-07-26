@@ -7,4 +7,5 @@ data class EpisodeDetail(
     val airDate: String,
     val url: String,
     val created: String,
+    val characters: List<String>,
 )

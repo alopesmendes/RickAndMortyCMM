@@ -12,6 +12,13 @@ import features.characters.data.repositories.CharactersRepositoryImpl
 import features.characters.domain.repositories.CharactersRepository
 import features.characters.domain.useCases.GetCharactersListUseCase
 import features.characters.presentation.viewModels.CharacterListViewModel
+import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasource
+import features.episodeDetail.data.datasource.EpisodeDetailRemoteDatasourceImpl
+import features.episodeDetail.data.repositories.EpisodeDetailRepositoryImpl
+import features.episodeDetail.domain.repositories.EpisodeDetailRepository
+import features.episodeDetail.domain.useCases.GetEpisodeCharactersUseCase
+import features.episodeDetail.domain.useCases.GetEpisodeDetailUseCase
+import features.episodeDetail.presentation.viewModels.EpisodeDetailViewModel
 import features.episodes.data.datasource.EpisodesRemoteDatasource
 import features.episodes.data.datasource.EpisodesRemoteDatasourceImpl
 import features.episodes.data.repositories.EpisodesRepositoryImpl
@@ -50,21 +57,26 @@ val appModule = module {
     singleOf(::CharacterDetailRemoteDatasourceImpl) { bind<CharacterDetailRemoteDatasource>() }
     singleOf(::EpisodesRemoteDatasourceImpl) { bind<EpisodesRemoteDatasource>() }
     singleOf(::LocationsRemoteDatasourceImpl) { bind<LocationsRemoteDatasource>() }
+    singleOf(::EpisodeDetailRemoteDatasourceImpl) { bind<EpisodeDetailRemoteDatasource>() }
 
     singleOf(::CharactersRepositoryImpl) { bind<CharactersRepository>() }
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
     singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
     singleOf(::LocationsRepositoryImpl) { bind<LocationsRepository>() }
+    singleOf(::EpisodeDetailRepositoryImpl) { bind<EpisodeDetailRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
     singleOf(::GetEpisodeListUseCase)
     singleOf(::GetLocationListUseCase)
+    singleOf(::GetEpisodeDetailUseCase)
+    singleOf(::GetEpisodeCharactersUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
     viewModelOf(::EpisodeListViewModel)
     viewModelOf(::LocationsViewModel)
+    viewModelOf(::EpisodeDetailViewModel)
 }
 
 fun initializeKoin() {

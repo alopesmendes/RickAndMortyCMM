@@ -14,7 +14,8 @@ class CharacterDetailReducer(
 ): Reducer<CharacterDetailState, CharacterDetailIntent, CharacterDetailEffect> {
     override suspend fun reduce(
         updateState: KFunction1<(CharacterDetailState) -> CharacterDetailState, Unit>,
-        intent: CharacterDetailIntent
+        intent: CharacterDetailIntent,
+        sendIntent: (CharacterDetailIntent) -> Unit,
     ) {
         when(intent) {
             is CharacterDetailIntent.FetchCharacterDetail -> {
