@@ -62,6 +62,7 @@ fun EpisodeListItem(
                 text = episode.airDate,
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.primaryVariant,
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
     }
