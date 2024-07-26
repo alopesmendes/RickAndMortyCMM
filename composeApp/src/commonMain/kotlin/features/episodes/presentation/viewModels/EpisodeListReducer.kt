@@ -14,7 +14,8 @@ class EpisodeListReducer(
 ): Reducer<EpisodeListState, EpisodeListIntent, EpisodeListEffect> {
     override suspend fun reduce(
         updateState: KFunction1<(EpisodeListState) -> EpisodeListState, Unit>,
-        intent: EpisodeListIntent
+        intent: EpisodeListIntent,
+        sendIntent: (EpisodeListIntent) -> Unit
     ) {
         when(intent) {
             is EpisodeListIntent.FetchEpisodes -> {

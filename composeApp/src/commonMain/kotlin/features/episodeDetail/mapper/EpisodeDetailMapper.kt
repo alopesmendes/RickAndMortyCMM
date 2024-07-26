@@ -5,11 +5,11 @@ import features.episodeDetail.data.models.EpisodeDetailCharacterDto
 import features.episodeDetail.data.models.EpisodeDetailDto
 import features.episodeDetail.domain.entities.EpisodeCharacter
 import features.episodeDetail.domain.entities.EpisodeDetail
-import features.episodeDetail.domain.entities.EpisodeDetailWithEpisodeCharacters
 import features.episodeDetail.presentation.state.EpisodeCharacterItem
 import features.episodeDetail.presentation.state.EpisodeDetailItem
 import features.episodeDetail.presentation.state.EpisodeDetailState
 import kotlinx.collections.immutable.persistentListOf
+import kotlin.jvm.JvmName
 
 fun EpisodeDetailDto.mapTo(): EpisodeDetail = EpisodeDetail(
     id = id,
@@ -42,7 +42,8 @@ fun EpisodeCharacter.mapTo(): EpisodeCharacterItem = EpisodeCharacterItem(
     image = image,
 )
 
-fun State<EpisodeDetailWithEpisodeCharacters>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeDetailState {
+@JvmName("mapToEpisodeDetailState")
+fun State<EpisodeDetail>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeDetailState {
     return when(this) {
         is State.Error -> episodeDetailState.copy(
             isLoading = false,
@@ -52,10 +53,27 @@ fun State<EpisodeDetailWithEpisodeCharacters>.mapTo(episodeDetailState: EpisodeD
             isLoading = true
         )
         is State.Success -> episodeDetailState.copy(
-            episodeDetail = data.episodeDetail.mapTo(),
+            isLoading = false,
+            episodeDetail = data.mapTo(),
+        )
+    }
+}
+
+@JvmName("mapToEpisodeDetailStateCharacters")
+fun State<List<EpisodeCharacter>>.mapTo(episodeDetailState: EpisodeDetailState): EpisodeDetailState {
+    return when(this) {
+        is State.Error -> episodeDetailState.copy(
+            isCharactersLoading = false,
+            error = "Error"
+        )
+        State.Loading -> episodeDetailState.copy(
+            isCharactersLoading = true
+        )
+        is State.Success -> episodeDetailState.copy(
+            isCharactersLoading = false,
             characters = persistentListOf(
                 *episodeDetailState.characters.toTypedArray(),
-                *data.episodeCharacters.map { it.mapTo() }.toTypedArray(),
+                *data.map { it.mapTo() }.toTypedArray(),
             )
         )
     }

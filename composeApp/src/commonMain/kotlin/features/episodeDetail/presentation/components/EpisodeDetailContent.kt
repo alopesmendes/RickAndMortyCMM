@@ -15,6 +15,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun EpisodeDetailContent(
     modifier: Modifier = Modifier,
     episodeDetailState: EpisodeDetailState,
+    onCharacterClick: (Int) -> Unit = {},
 ) {
     when {
         episodeDetailState.error != null -> {
@@ -27,6 +28,8 @@ fun EpisodeDetailContent(
                 modifier = modifier,
                 episodeDetail = episodeDetailState.episodeDetail,
                 episodeCharacters = episodeDetailState.characters,
+                isCharactersLoading = episodeDetailState.isCharactersLoading,
+                onCharacterClick = onCharacterClick,
             )
         }
     }

@@ -42,7 +42,11 @@ abstract class BaseViewModel<State : Reducer.ViewState, Intent : Reducer.ViewInt
     private fun onHandleIntents() {
         viewModelScope.launch {
             _intents.collectLatest {
-                reducer.reduce(_state::update, it)
+                reducer.reduce(
+                    updateState = _state::update,
+                    intent = it,
+                    sendIntent = ::sendIntent
+                )
             }
         }
     }

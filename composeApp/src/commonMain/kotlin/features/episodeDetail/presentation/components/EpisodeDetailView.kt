@@ -1,5 +1,6 @@
 package features.episodeDetail.presentation.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +9,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.components.InfiniteLazyColumn
@@ -23,6 +25,8 @@ fun EpisodeDetailView(
     modifier: Modifier = Modifier,
     episodeDetail: EpisodeDetailItem,
     episodeCharacters: ImmutableList<EpisodeCharacterItem>,
+    isCharactersLoading: Boolean = false,
+    onCharacterClick: (Int) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         TitleComponent(
@@ -47,9 +51,11 @@ fun EpisodeDetailView(
         InfiniteLazyColumn(
             modifier = Modifier.fillMaxWidth(),
             loadingItem = {
-                CircularProgressIndicator()
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             },
-            loading = false,
+            loading = isCharactersLoading,
             items = episodeCharacters,
             itemKey = { it.id },
             loadMore = {},
@@ -57,6 +63,7 @@ fun EpisodeDetailView(
                 EpisodeCharacterListItem(
                     modifier = Modifier.fillMaxWidth(),
                     episodeCharacter = it,
+                    onClick = { onCharacterClick(it.id) }
                 )
             }
         )

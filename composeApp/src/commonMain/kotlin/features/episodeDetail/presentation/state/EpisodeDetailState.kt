@@ -9,6 +9,7 @@ import kotlinx.collections.immutable.persistentListOf
 data class EpisodeDetailState(
     val isLoading: Boolean = false,
     val error: String? = null,
+    val isCharactersLoading: Boolean = false,
     val episodeDetail: EpisodeDetailItem = EpisodeDetailItem(),
     val characters: ImmutableList<EpisodeCharacterItem> = persistentListOf(),
 ): Reducer.ViewState

@@ -5,5 +5,7 @@ import core.util.Reducer
 
 @Immutable
 sealed interface EpisodeDetailIntent : Reducer.ViewIntent {
-    data class FetchEpisodeDetailWithCharacters(val id: Int): EpisodeDetailIntent
+    data class FetchEpisodeDetail(val id: Int): EpisodeDetailIntent
+
+    data class FetchEpisodeCharacters(val characters: List<String>): EpisodeDetailIntent
 }

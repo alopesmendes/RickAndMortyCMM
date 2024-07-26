@@ -1,5 +1,6 @@
 package features.episodeDetail.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,9 +22,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun EpisodeCharacterListItem(
     modifier: Modifier = Modifier,
     episodeCharacter: EpisodeCharacterItem,
+    onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

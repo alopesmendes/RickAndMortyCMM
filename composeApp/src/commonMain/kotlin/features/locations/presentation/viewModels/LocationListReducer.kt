@@ -14,7 +14,8 @@ class LocationListReducer(
 ): Reducer<LocationListState, LocationListIntent, LocationListEffect> {
     override suspend fun reduce(
         updateState: KFunction1<(LocationListState) -> LocationListState, Unit>,
-        intent: LocationListIntent
+        intent: LocationListIntent,
+        sendIntent: (LocationListIntent) -> Unit
     ) {
         when(intent) {
             is LocationListIntent.FetchLocations -> {

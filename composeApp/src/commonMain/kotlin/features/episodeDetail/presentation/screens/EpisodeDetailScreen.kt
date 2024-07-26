@@ -7,8 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.navigation.Routes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.episodeDetail.presentation.components.EpisodeDetailContent
+import features.episodeDetail.presentation.intents.EpisodeDetailEffect
 import features.episodeDetail.presentation.viewModels.EpisodeDetailViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -29,12 +31,23 @@ fun EpisodeDetailScreen(
 
     LaunchedEffect(effect) {
         effect.collect {
-
+            when(it) {
+                is EpisodeDetailEffect.NavigateToCharacterDetail -> {
+                    navHostController.navigate(
+                        Routes.CharacterDetail.navigateTo(it.id)
+                    )
+                }
+            }
         }
     }
 
     EpisodeDetailContent(
         modifier = modifier.fillMaxSize(),
         episodeDetailState = state,
+        onCharacterClick = {
+            episodeDetailViewModel.sendEffect(
+                EpisodeDetailEffect.NavigateToCharacterDetail(it)
+            )
+        }
     )
 }

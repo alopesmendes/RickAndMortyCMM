@@ -14,7 +14,8 @@ class CharacterListReducer(
 ): Reducer<CharactersListState, CharacterListIntent, CharacterListEffect> {
     override suspend fun reduce(
         updateState: KFunction1<(CharactersListState) -> CharactersListState, Unit>,
-        intent: CharacterListIntent
+        intent: CharacterListIntent,
+        sendIntent: (CharacterListIntent) -> Unit
     ) {
         when(intent) {
             is CharacterListIntent.FetchCharacterList -> {
