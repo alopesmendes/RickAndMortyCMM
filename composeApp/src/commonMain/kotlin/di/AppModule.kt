@@ -25,6 +25,8 @@ import features.episodes.data.repositories.EpisodesRepositoryImpl
 import features.episodes.domain.repositories.EpisodesRepository
 import features.episodes.domain.useCases.GetEpisodeListUseCase
 import features.episodes.presentation.viewModels.EpisodeListViewModel
+import features.locationDetail.data.datasource.LocationDetailDatasource
+import features.locationDetail.data.datasource.LocationDetailDatasourceImpl
 import features.locations.data.datasource.LocationsRemoteDatasource
 import features.locations.data.datasource.LocationsRemoteDatasourceImpl
 import features.locations.data.repositories.LocationsRepositoryImpl
@@ -58,6 +60,7 @@ val appModule = module {
     singleOf(::EpisodesRemoteDatasourceImpl) { bind<EpisodesRemoteDatasource>() }
     singleOf(::LocationsRemoteDatasourceImpl) { bind<LocationsRemoteDatasource>() }
     singleOf(::EpisodeDetailRemoteDatasourceImpl) { bind<EpisodeDetailRemoteDatasource>() }
+    singleOf(::LocationDetailDatasourceImpl) { bind<LocationDetailDatasource>() }
 
     singleOf(::CharactersRepositoryImpl) { bind<CharactersRepository>() }
     singleOf(::CharacterDetailRepositoryImpl) { bind<CharacterDetailRepository>() }
