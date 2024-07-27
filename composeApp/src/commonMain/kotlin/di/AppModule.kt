@@ -31,6 +31,7 @@ import features.locationDetail.data.repositories.LocationDetailRepositoryImpl
 import features.locationDetail.domain.repositories.LocationDetailRepository
 import features.locationDetail.domain.useCases.GetLocationDetailUseCase
 import features.locationDetail.domain.useCases.GetResidentsUseCase
+import features.locationDetail.presentation.viewModels.LocationDetailViewModel
 import features.locations.data.datasource.LocationsRemoteDatasource
 import features.locations.data.datasource.LocationsRemoteDatasourceImpl
 import features.locations.data.repositories.LocationsRepositoryImpl
@@ -87,6 +88,7 @@ val appModule = module {
     viewModelOf(::EpisodeListViewModel)
     viewModelOf(::LocationsViewModel)
     viewModelOf(::EpisodeDetailViewModel)
+    viewModelOf(::LocationDetailViewModel)
 }
 
 fun initializeKoin() {
