@@ -15,8 +15,8 @@ interface LocationDetailRepository {
     /**
      * Get residents
      *
-     * @param residentIds the list of resident ids
+     * @param residents the list of resident ids
      * @return [Result] of [List] of [Resident]
      */
-    suspend fun getResidents(residentIds: List<Int>): Result<List<Resident>>
+    suspend fun getResidents(residents: List<String>): Result<List<Resident>>
 }

@@ -42,10 +42,10 @@ class GetResidentsUseCaseTest {
     @Test
     fun `should get residents when data available`() = runTest {
         // given:
-        val ids = listOf(1, 2, 3)
+        val ids = listOf("1", "2", "3")
         val residents = ids.map {
             Resident(
-                id = it,
+                id = it.toInt(),
                 name = "Resident $it",
                 image = "https://example.com/image$it.jpg",
             )
@@ -68,7 +68,7 @@ class GetResidentsUseCaseTest {
     @Test
     fun `should not get residents when data not available`() = runTest {
         // given:
-        val ids = listOf(1, 2, 3)
+        val ids = listOf("1", "2", "3")
         val exception = Exception()
 
         // when:

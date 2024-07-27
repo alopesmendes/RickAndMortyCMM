@@ -27,6 +27,10 @@ import features.episodes.domain.useCases.GetEpisodeListUseCase
 import features.episodes.presentation.viewModels.EpisodeListViewModel
 import features.locationDetail.data.datasource.LocationDetailDatasource
 import features.locationDetail.data.datasource.LocationDetailDatasourceImpl
+import features.locationDetail.data.repositories.LocationDetailRepositoryImpl
+import features.locationDetail.domain.repositories.LocationDetailRepository
+import features.locationDetail.domain.useCases.GetLocationDetailUseCase
+import features.locationDetail.domain.useCases.GetResidentsUseCase
 import features.locations.data.datasource.LocationsRemoteDatasource
 import features.locations.data.datasource.LocationsRemoteDatasourceImpl
 import features.locations.data.repositories.LocationsRepositoryImpl
@@ -67,6 +71,7 @@ val appModule = module {
     singleOf(::EpisodesRepositoryImpl) { bind<EpisodesRepository>() }
     singleOf(::LocationsRepositoryImpl) { bind<LocationsRepository>() }
     singleOf(::EpisodeDetailRepositoryImpl) { bind<EpisodeDetailRepository>() }
+    singleOf(::LocationDetailRepositoryImpl) { bind<LocationDetailRepository>() }
 
     singleOf(::GetCharactersListUseCase)
     singleOf(::GetCharacterDetailUseCase)
@@ -74,6 +79,8 @@ val appModule = module {
     singleOf(::GetLocationListUseCase)
     singleOf(::GetEpisodeDetailUseCase)
     singleOf(::GetEpisodeCharactersUseCase)
+    singleOf(::GetLocationDetailUseCase)
+    singleOf(::GetResidentsUseCase)
 
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterDetailViewModel)
