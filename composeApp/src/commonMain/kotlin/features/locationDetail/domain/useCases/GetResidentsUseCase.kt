@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.flow
 class GetResidentsUseCase(
     private val locationDetailRepository: LocationDetailRepository
 ) {
-    operator fun invoke(residentIds: List<Int>): Flow<State<List<Resident>>> = flow {
+    operator fun invoke(residents: List<String>): Flow<State<List<Resident>>> = flow {
         emit(State.Loading)
 
-        val result = locationDetailRepository.getResidents(residentIds)
+        val result = locationDetailRepository.getResidents(residents)
         val state = result.fold(
             onSuccess = { State.Success(it) },
             onFailure = { State.Error(it.toFailure()) },

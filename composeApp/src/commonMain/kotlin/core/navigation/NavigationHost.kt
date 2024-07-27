@@ -71,6 +71,7 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
 
         composable(Routes.LocationDetail.fullRoute(), arguments = Routes.LocationDetail.navParams()) {
             LocationDetailScreen(
+                parametersHolder = parametersOf(SavedStateHandle.createHandle(null, it.arguments)),
                 navHostController = navHostController,
             )
         }
