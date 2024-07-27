@@ -30,7 +30,7 @@ fun LocationsScreen(
             when (it) {
                 is LocationListEffect.NavigationToLocationDetail -> {
                     navHostController.navigate(
-                        Routes.Locations.navigateTo(it.id)
+                        Routes.LocationDetail.navigateTo(it.id)
                     )
                 }
             }
