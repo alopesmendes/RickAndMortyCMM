@@ -1,10 +1,15 @@
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
@@ -18,6 +23,7 @@ import coil3.request.CachePolicy
 import coil3.request.crossfade
 import coil3.util.DebugLogger
 import core.components.MainScaffold
+import core.components.MainTopBar
 import core.navigation.NavigationHost
 import core.navigation.ObserveNavigation
 import core.navigation.Routes
@@ -40,6 +46,9 @@ fun App() {
             var navItemsVisible by remember {
                 mutableStateOf(true)
             }
+            var title by rememberSaveable {
+                mutableStateOf("Title")
+            }
 
             ObserveNavigation(
                 navController = navController,
@@ -55,10 +64,23 @@ fun App() {
                 onClick = {
                     navController.navigate(it.navigateTo())
                 },
+                topBar = {
+                    if (!navItemsVisible) {
+                        MainTopBar(
+                            title = title,
+                            onNavigateBack = if (!navItemsVisible) {
+                                {
+                                    navController.popBackStack()
+                                }
+                            } else null,
+                        )
+                    }
+                },
                 content = { innerPadding ->
                     NavigationHost(
                         modifier = Modifier.padding(innerPadding).fillMaxSize(),
                         navHostController = navController,
+                        onTitleChanged = { title = it },
                     )
                 }
             )

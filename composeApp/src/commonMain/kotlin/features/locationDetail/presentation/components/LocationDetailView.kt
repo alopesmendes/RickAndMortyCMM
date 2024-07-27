@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import core.components.InfiniteLazyColumn
-import core.components.TitleComponent
 import features.locationDetail.presentation.state.LocationDetailItem
 import features.locationDetail.presentation.state.ResidentItem
 import kotlinx.collections.immutable.ImmutableList
@@ -40,11 +39,6 @@ fun LocationDetailView(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        TitleComponent(
-            modifier = Modifier.fillMaxWidth(),
-            title = locationDetail.name
-        )
-
         Card(
             modifier = Modifier
                 .fillMaxWidth()

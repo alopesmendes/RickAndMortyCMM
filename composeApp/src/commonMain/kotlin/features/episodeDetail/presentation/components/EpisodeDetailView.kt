@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import core.components.InfiniteLazyColumn
-import core.components.TitleComponent
 import features.episodeDetail.presentation.state.EpisodeCharacterItem
 import features.episodeDetail.presentation.state.EpisodeDetailItem
 import kotlinx.collections.immutable.ImmutableList
@@ -29,12 +28,6 @@ fun EpisodeDetailView(
     onCharacterClick: (Int) -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        TitleComponent(
-            modifier = Modifier.fillMaxWidth(),
-            title = episodeDetail.name
-        )
-        Spacer(Modifier.height(4.dp))
-
         Text(
             text = episodeDetail.airDate,
             color = MaterialTheme.colors.primaryVariant,
