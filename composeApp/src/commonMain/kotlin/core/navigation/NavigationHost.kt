@@ -19,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun ObserveNavigation(navController: NavHostController, onDestinationChanged: (String) -> Unit) {
     DisposableEffect(navController) {
-        val listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
             destination.route?.let { onDestinationChanged(it) }
         }
         navController.addOnDestinationChangedListener(listener)
@@ -31,7 +31,11 @@ fun ObserveNavigation(navController: NavHostController, onDestinationChanged: (S
 
 
 @Composable
-fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
+fun NavigationHost(
+    modifier: Modifier,
+    navHostController: NavHostController,
+    onTitleChanged: (String) -> Unit = {},
+) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
@@ -46,7 +50,8 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
         composable(Routes.CharacterDetail.fullRoute(), arguments = Routes.CharacterDetail.navParams()) {
             CharacterDetailScreen(
                 parametersHolder = parametersOf(SavedStateHandle.createHandle(null, it.arguments)),
-                navHostController = navHostController
+                navHostController = navHostController,
+                onTitleChanged = onTitleChanged,
             )
         }
 
@@ -60,6 +65,7 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
             EpisodeDetailScreen(
                 parametersHolder = parametersOf(SavedStateHandle.createHandle(null, it.arguments)),
                 navHostController = navHostController,
+                onTitleChanged = onTitleChanged,
             )
         }
 
@@ -73,6 +79,7 @@ fun NavigationHost(modifier: Modifier, navHostController: NavHostController) {
             LocationDetailScreen(
                 parametersHolder = parametersOf(SavedStateHandle.createHandle(null, it.arguments)),
                 navHostController = navHostController,
+                onTitleChanged = onTitleChanged,
             )
         }
     }

@@ -25,6 +25,7 @@ fun EpisodeDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onTitleChanged: (String) -> Unit = {},
 ) {
     val state by episodeDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(episodeDetailViewModel.effects)
@@ -38,6 +39,12 @@ fun EpisodeDetailScreen(
                     )
                 }
             }
+        }
+    }
+
+    LaunchedEffect(state) {
+        if (!state.isLoading) {
+            onTitleChanged(state.episodeDetail.name)
         }
     }
 

@@ -25,6 +25,7 @@ fun MainScaffold(
     startDestination: Routes,
     navItems: ImmutableList<Routes>,
     onClick: (Routes) -> Unit,
+    topBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     var selected by remember {
@@ -33,6 +34,7 @@ fun MainScaffold(
     Scaffold(
         modifier = modifier,
         content = content,
+        topBar = topBar,
         bottomBar = {
             AnimatedVisibility(
                 visible = navItemsVisible

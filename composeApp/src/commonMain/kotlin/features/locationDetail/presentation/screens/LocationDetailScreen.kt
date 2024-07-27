@@ -25,6 +25,7 @@ fun LocationDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onTitleChanged: (String) -> Unit = {},
 ) {
     val locationDetailState by locationDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(locationDetailViewModel.effects)
@@ -38,6 +39,12 @@ fun LocationDetailScreen(
                     )
                 }
             }
+        }
+    }
+
+    LaunchedEffect(locationDetailState) {
+        if (!locationDetailState.isLoading) {
+            onTitleChanged(locationDetailState.locationDetail.name)
         }
     }
 

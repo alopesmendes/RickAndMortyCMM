@@ -25,6 +25,7 @@ fun CharacterDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onTitleChanged: (String) -> Unit = {},
 ) {
     val state by characterDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(characterDetailViewModel.effects)
@@ -44,6 +45,12 @@ fun CharacterDetailScreen(
                     )
                 }
             }
+        }
+    }
+
+    LaunchedEffect(state) {
+        if (!state.isLoading) {
+            onTitleChanged(state.character.name)
         }
     }
 
