@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.locationDetail.presentation.components.LocationDetailContent
@@ -25,9 +26,9 @@ fun LocationDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    onTitleChanged: (String) -> Unit = {},
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
-    val locationDetailState by locationDetailViewModel.state.collectAsStateWithLifecycle()
+    val state by locationDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(locationDetailViewModel.effects)
 
     LaunchedEffect(effect) {
@@ -42,15 +43,21 @@ fun LocationDetailScreen(
         }
     }
 
-    LaunchedEffect(locationDetailState) {
-        if (!locationDetailState.isLoading) {
-            onTitleChanged(locationDetailState.locationDetail.name)
+    LaunchedEffect(state) {
+        if (!state.isLoading) {
+            onScaffoldItemsState(
+                ScaffoldItemsState(
+                    topBarTitle = state.locationDetail.name,
+                    actionId = state.locationDetail.id,
+                    startDestination = Routes.CharacterDetail,
+                )
+            )
         }
     }
 
     LocationDetailContent(
         modifier = modifier.fillMaxSize(),
-        locationDetailState = locationDetailState,
+        locationDetailState = state,
         onResidentClick = {
             locationDetailViewModel.sendEffect(
                 LocationDetailEffect.NavigateToResident(it)

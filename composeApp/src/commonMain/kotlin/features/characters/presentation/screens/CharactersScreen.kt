@@ -6,7 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
+import core.navigation.navItemsRoutes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.characters.presentation.components.CharacterListContent
 import features.characters.presentation.intents.CharacterListEffect
@@ -21,6 +23,7 @@ fun CharactersScreen(
     charactersListViewModel: CharacterListViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
     val characterListState by charactersListViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(charactersListViewModel.effects)
@@ -37,6 +40,15 @@ fun CharactersScreen(
                 }
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        onScaffoldItemsState(
+            ScaffoldItemsState(
+                navItems = navItemsRoutes,
+                startDestination = Routes.Characters,
+            )
+        )
     }
 
     CharacterListContent(

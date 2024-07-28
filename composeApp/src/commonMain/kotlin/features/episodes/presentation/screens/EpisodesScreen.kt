@@ -7,7 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
+import core.navigation.navItemsRoutes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.episodes.presentation.components.EpisodeListContent
 import features.episodes.presentation.intents.EpisodeListEffect
@@ -22,6 +24,7 @@ fun EpisodesScreen(
     episodeListViewModel: EpisodeListViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
     val state by episodeListViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(episodeListViewModel.effects)
@@ -36,6 +39,15 @@ fun EpisodesScreen(
                 }
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        onScaffoldItemsState(
+            ScaffoldItemsState(
+                navItems = navItemsRoutes,
+                startDestination = Routes.Episodes,
+            )
+        )
     }
 
     EpisodeListContent(

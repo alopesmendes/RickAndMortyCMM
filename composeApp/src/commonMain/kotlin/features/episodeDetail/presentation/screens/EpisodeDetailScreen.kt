@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.episodeDetail.presentation.components.EpisodeDetailContent
@@ -25,7 +26,7 @@ fun EpisodeDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    onTitleChanged: (String) -> Unit = {},
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
     val state by episodeDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(episodeDetailViewModel.effects)
@@ -44,7 +45,13 @@ fun EpisodeDetailScreen(
 
     LaunchedEffect(state) {
         if (!state.isLoading) {
-            onTitleChanged(state.episodeDetail.name)
+            onScaffoldItemsState(
+                ScaffoldItemsState(
+                    topBarTitle = state.episodeDetail.name,
+                    actionId = state.episodeDetail.id,
+                    startDestination = Routes.EpisodeDetail,
+                )
+            )
         }
     }
 

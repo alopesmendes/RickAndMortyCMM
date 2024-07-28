@@ -14,37 +14,45 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
-import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MainScaffold(
     modifier: Modifier = Modifier,
-    navItemsVisible: Boolean = false,
-    startDestination: Routes,
-    navItems: ImmutableList<Routes>,
+    scaffoldItemsState: ScaffoldItemsState,
     onClick: (Routes) -> Unit,
-    topBar: @Composable () -> Unit = {},
+    onNavigateBack: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     var selected by remember {
-        mutableStateOf(startDestination)
+        mutableStateOf(scaffoldItemsState.startDestination)
     }
     Scaffold(
         modifier = modifier,
         content = content,
-        topBar = topBar,
+        topBar = {
+            AnimatedVisibility(
+                visible = scaffoldItemsState.topBarTitle != null,
+            ) {
+                MainTopBar(
+                    title = scaffoldItemsState.topBarTitle ?: "",
+                    onNavigateBack = onNavigateBack,
+                    actionId = scaffoldItemsState.actionId,
+                )
+            }
+        },
         bottomBar = {
             AnimatedVisibility(
-                visible = navItemsVisible
+                visible = scaffoldItemsState.navItems.isNotEmpty(),
             ) {
                 BottomNavigation(
                     modifier = Modifier,
                     backgroundColor = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.onBackground
                 ) {
-                    navItems.forEach { item ->
+                    scaffoldItemsState.navItems.forEach { item ->
                         BottomNavigationItem(
                             icon = {
                                 item.icon?.let {
