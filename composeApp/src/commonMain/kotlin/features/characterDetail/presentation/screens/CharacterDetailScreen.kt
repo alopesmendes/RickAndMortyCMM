@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.characterDetail.presentation.components.CharacterDetailContent
@@ -25,7 +26,7 @@ fun CharacterDetailScreen(
     ),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    onTitleChanged: (String) -> Unit = {},
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
     val state by characterDetailViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(characterDetailViewModel.effects)
@@ -50,7 +51,13 @@ fun CharacterDetailScreen(
 
     LaunchedEffect(state) {
         if (!state.isLoading) {
-            onTitleChanged(state.character.name)
+            onScaffoldItemsState(
+                ScaffoldItemsState(
+                    topBarTitle = state.character.name,
+                    actionId = state.character.id,
+                    startDestination = Routes.CharacterDetail,
+                )
+            )
         }
     }
 

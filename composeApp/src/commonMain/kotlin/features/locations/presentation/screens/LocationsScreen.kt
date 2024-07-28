@@ -6,7 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import core.entities.ScaffoldItemsState
 import core.navigation.Routes
+import core.navigation.navItemsRoutes
 import core.util.Tools.rememberFlowWithLifecycle
 import features.locations.presentation.components.LocationListContent
 import features.locations.presentation.intents.LocationListEffect
@@ -21,6 +23,7 @@ fun LocationsScreen(
     locationsViewModel: LocationsViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    onScaffoldItemsState: (ScaffoldItemsState) -> Unit = {},
 ) {
     val state by locationsViewModel.state.collectAsStateWithLifecycle()
     val effect = rememberFlowWithLifecycle(locationsViewModel.effects)
@@ -35,6 +38,15 @@ fun LocationsScreen(
                 }
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        onScaffoldItemsState(
+            ScaffoldItemsState(
+                navItems = navItemsRoutes,
+                startDestination = Routes.Locations,
+            )
+        )
     }
 
     LocationListContent(

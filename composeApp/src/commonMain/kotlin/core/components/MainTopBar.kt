@@ -27,6 +27,7 @@ private fun BackNavigationIcon(
 @Composable
 fun MainTopBar(
     title: String,
+    actionId: Int? = null,
     onNavigateBack: (() -> Unit)? = null,
 ) {
     TopAppBar(
@@ -44,5 +45,10 @@ fun MainTopBar(
                 )
             }
         } else null,
+        actions = {
+            actionId?.let {
+                Text("#$it")
+            }
+        }
     )
 }
