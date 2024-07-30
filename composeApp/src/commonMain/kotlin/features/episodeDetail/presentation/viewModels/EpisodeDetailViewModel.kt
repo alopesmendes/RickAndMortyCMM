@@ -5,7 +5,6 @@ import core.util.BaseViewModel
 import core.util.Constants
 import features.episodeDetail.domain.useCases.GetEpisodeCharactersUseCase
 import features.episodeDetail.domain.useCases.GetEpisodeDetailUseCase
-import features.episodeDetail.domain.useCases.GetEpisodeDetailWithEpisodeCharactersUseCase
 import features.episodeDetail.presentation.intents.EpisodeDetailEffect
 import features.episodeDetail.presentation.intents.EpisodeDetailIntent
 import features.episodeDetail.presentation.state.EpisodeDetailState
